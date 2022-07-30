@@ -1,5 +1,6 @@
 const fs = require("fs");
 const http = require("http");
+const url = require("url");
 
 // Blocking synch way
 const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
@@ -33,8 +34,20 @@ const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
 ///////////////
 // SERVER
 const server = http.createServer((req, res) => {
-  console.log(req);
-  res.end("Hello from the server!");
+  console.log(req.url);
+
+  const path = req.url;
+
+  if (path === "/overview" || path === "/") {
+    res.end("This is an overview");
+  } else if (path === "/product") {
+    res.end("This is a product!");
+  } else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+    });
+    res.end("<h1>Broken!</h1>");
+  }
 });
 server.listen(8000, "127.0.0.1", () => {
   console.log("Listening on port 8000");
