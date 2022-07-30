@@ -33,13 +33,20 @@ const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
 
 ///////////////
 // SERVER
-const server = http.createServer((req, res) => {
-  console.log(req.url);
 
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObject = JSON.parse(data);
+
+const server = http.createServer((req, res) => {
   const path = req.url;
 
   if (path === "/overview" || path === "/") {
     res.end("This is an overview");
+  } else if (path === "/api") {
+    res.writeHead(200, {
+      "Content-type": "application/JSON",
+    });
+    res.end(data);
   } else if (path === "/product") {
     res.end("This is a product!");
   } else {
