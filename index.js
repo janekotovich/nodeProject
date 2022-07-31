@@ -2,6 +2,9 @@ const fs = require("fs");
 const http = require("http");
 const url = require("url");
 
+//third party modules
+const slugify = require("slugify");
+
 //own modules
 const replaceTemplate = require("./modules/replaceTemplate");
 
@@ -52,6 +55,8 @@ const tempCard = fs.readFileSync(
   `${__dirname}/templates/template-card.html`,
   "utf-8"
 );
+
+const slugs = dataObject.map((a) => slugify(a.productName, { lower: true }));
 
 const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
