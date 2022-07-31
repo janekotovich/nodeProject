@@ -67,10 +67,10 @@ const tempCard = fs.readFileSync(
 );
 
 const server = http.createServer((req, res) => {
-  const path = req.url;
+  const { query, pathname } = url.parse(req.url, true);
 
   // Overview - home page
-  if (path === "/overview" || path === "/") {
+  if (pathname === "/overview" || pathname === "/") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
@@ -82,13 +82,19 @@ const server = http.createServer((req, res) => {
     res.end(output);
   }
   //EACH of the single product
-  else if (path === "/api") {
+  else if (pathname === "/api") {
     res.writeHead(200, {
       "Content-type": "application/JSON",
     });
     res.end(data);
-  } else if (path === "/product") {
-    res.end("This is a product!");
+  } else if (pathname === "/product") {
+    const product = dataObject[query.id];
+    res.writeHead(200, {
+      "Content-type": "text/html",
+    });
+    const output = replaceTemplate(tempProduct, product);
+
+    res.end(output);
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
