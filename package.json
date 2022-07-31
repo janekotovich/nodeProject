@@ -1,0 +1,25 @@
+{
+  "name": "node-farm",
+  "version": "1.0.0",
+  "description": "learning project for node,js",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janekotovich/nodeProject.git"
+  },
+  "author": "Jane Kotovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janekotovich/nodeProject/issues"
+  },
+  "homepage": "https://github.com/janekotovich/nodeProject#readme",
+  "dependencies": {
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
